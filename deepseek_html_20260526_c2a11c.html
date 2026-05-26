@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>改革开放史复习｜马卡龙色系 · 正确答案高亮</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', 'PingFang SC', 'Roboto', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: #faf8f2;
+            padding: 2rem 1.5rem;
+        }
+
+        /* 马卡龙柔和色调 */
+        :root {
+            --card-white: #ffffff;
+            --mint-soft: #cfe9df;
+            --mint-bright: #b1dfcb;
+            --correct-green: #b5d3b2;
+            --correct-border: #7fa07b;
+            --lavender-light: #e5def0;
+            --peach-light: #ffe6d5;
+            --butter: #fef3cf;
+            --text-dark: #3a3a2e;
+            --shadow-sm: 0 6px 14px rgba(0, 0, 0, 0.02), 0 2px 4px rgba(0, 0, 0, 0.03);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* 顶部导航栏 */
+        .top-bar {
+            background: white;
+            border-radius: 56px;
+            padding: 1rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid #f2ecde;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 650;
+            background: linear-gradient(130deg, #7c9e7a, #bbcea8);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.2px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+        }
+
+        .chapter-btn {
+            background: #fff7ef;
+            border: none;
+            padding: 0.45rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #5c5342;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .chapter-btn.active {
+            background: var(--mint-soft);
+            color: #2a5a3e;
+            border: 1px solid var(--correct-border);
+            box-shadow: 0 4px 10px rgba(129, 168, 117, 0.2);
+        }
+
+        .all-btn.active {
+            background: var(--butter);
+            border-color: #dbbf7a;
+        }
+
+        /* 题目卡片 */
+        .question-card {
+            background: var(--card-white);
+            border-radius: 32px;
+            padding: 1.5rem 1.8rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: 0.1s;
+            border: 1px solid #f2ebdb;
+        }
+
+        .question-header {
+            display: flex;
+            align-items: baseline;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.8rem;
+        }
+
+        .q-type {
+            background: var(--lavender-light);
+            padding: 0.2rem 1rem;
+            border-radius: 60px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #51457a;
+            letter-spacing: 0.3px;
+        }
+
+        .q-text {
+            font-size: 1.05rem;
+            font-weight: 500;
+            line-height: 1.45;
+            color: #2e2c27;
+            background: #fefbf5;
+            padding: 0.6rem 1rem;
+            border-radius: 28px;
+            margin: 0.5rem 0 1rem 0;
+        }
+
+        /* 选项区域 (圆角矩形) */
+        .options-area {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.9rem;
+            margin: 0.8rem 0 0.4rem;
+        }
+
+        .option-item {
+            flex: 1 1 auto;
+            min-width: 150px;
+            background: #faf7f0;
+            border-radius: 80px;
+            padding: 0.6rem 1.3rem;
+            text-align: center;
+            font-weight: 500;
+            color: #4c473b;
+            border: 1px solid #e6decb;
+            transition: 0.05s linear;
+            cursor: default;
+        }
+
+        /* 正确选项 —— 清爽马卡龙绿 */
+        .option-item.correct {
+            background: var(--correct-green);
+            border-color: var(--correct-border);
+            color: #1f482c;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(111, 158, 120, 0.2);
+        }
+
+        /* 填空题专用 */
+        .fill-answer-area {
+            background: #f5f2e6;
+            border-radius: 28px;
+            padding: 0.8rem 1.2rem;
+            margin-top: 0.8rem;
+            display: inline-block;
+            width: auto;
+            border-left: 6px solid var(--mint-bright);
+        }
+
+        .fill-label {
+            font-weight: 700;
+            color: #6f784a;
+            margin-right: 0.8rem;
+        }
+
+        .fill-badge {
+            background: white;
+            padding: 0.25rem 0.9rem;
+            border-radius: 40px;
+            color: #2d733c;
+            font-weight: 500;
+            margin-right: 0.5rem;
+            display: inline-block;
+        }
+
+        hr {
+            margin: 0.5rem 0;
+            border-color: #efe6d4;
+        }
+
+        .empty-tip {
+            text-align: center;
+            padding: 3rem;
+            background: #fff9ef;
+            border-radius: 48px;
+            color: #afaa95;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.75rem;
+            color: #cfc7b2;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 1rem;
+            }
+            .question-card {
+                padding: 1rem;
+            }
+            .option-item {
+                min-width: 110px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="top-bar">
+        <h1>🌸 改革开放史 · 考点高亮复习</h1>
+        <div class="btn-group" id="chapterNav"></div>
+    </div>
+    <div id="questionsContainer" class="questions-list"></div>
+    <footer>✅ 绿色背景 = 标准答案 | 支持单选 / 多选 / 判断 / 填空 | 按章节或全部顺序背诵</footer>
+</div>
+
+<script>
+    // --------------------------------------------------------------
+    // 📌 题目数据区 (请按下方格式填写你需要的所有题目)
+    // 每个题目对象字段说明:
+    // - chapterId: 章节ID 0~7  (共八个章节)
+    // - type: "单选" / "多选" / "判断" / "填空"
+    // - text: 题目文本
+    // - options: 选项数组 (判断类型请使用 ["正确", "错误"] ; 填空类型填空不需要options)
+    // - correctAnswers: 正确答案数组 (单选/多选填字母, 如 ["A"] 或 ["A","C"]; 判断填 ["正确"] 或 ["错误"]; 填空填 [] 忽略此项)
+    // - fillAnswers: 仅填空类型使用，数组存放填空答案，例如 ["和平", "发展"]
+    // 
+    // 注意：目前下方已经添加【样例题目】每个章节展示一道示范，你可以直接复制此格式扩充完整题库。
+    // 如需添加新题目，只需在对应章节的数组后追加对象即可。
+    // --------------------------------------------------------------
+    const questionsData = [];
+
+    // ===================== 章节0: 绪论测验 =====================
+    questionsData.push(
+		// ---------- 单选题 ----------
+		{ chapterId: 0, type: "单选", text: "2001年12月，经过15年的谈判，中国正式加入世界贸易组织(WTO)，成为全球多边贸易大家庭的第个成员。", options: ["A、143", "B、89", "C、142", "D、156"], correctAnswers: ["A"] },
+		{ chapterId: 0, type: "单选", text: "上世纪80年代，党中央决定兴办深圳、珠海、汕头、厦门等经济特区，打破了计划经济体制的坚冰，打开了吸引外资的局面，成为对外开放的重要“试验田”和重要“窗口”。之后，大连、天津、烟台、青岛、上海等（ ）个沿海港口城市对外开放。", options: ["A、13", "B、12", "C、15", "D、14"], correctAnswers: ["D"] },
+		{ chapterId: 0, type: "单选", text: "习近平总书记在庆祝改革开放40周年大会上的重要讲话中指出：（ )是改革开放的生命。", options: ["A、人才", "B、生产力", "C、创新", "D、科学技术"], correctAnswers: ["C"] },
+		{ chapterId: 0, type: "单选", text: "2013年9月至2018年4月，国务院先后批复设置了上海、广东、天津、海南等（ ）个自由贸易试验区。", options: ["A、8", "B、12", "C、14", "D、10"], correctAnswers: ["B"] },
+		{ chapterId: 0, type: "单选", text: "1978年12月，党的（ ）中国开始实行的对内改革、对外开放的政策。", options: ["A、十一届六种全会", "B、十届六中全会", "C、十一届三中全会", "D、十届三中全会"], correctAnswers: ["C"] },
+		{ chapterId: 0, type: "单选", text: "2010年后已是世界第（ ）大经济体。", options: ["A、六", "B、三", "C、二", "D、一"], correctAnswers: ["C"] },
+		{ chapterId: 0, type: "单选", text: "改革的理论依据是马克思主义关于（ ）的理论", options: ["A、辩证法", "B、社会生产力发展", "C、发展运动", "D、人的解放"], correctAnswers: ["B"] },
+		{ chapterId: 0, type: "单选", text: "1978年12月（ ）日,中国共产党召开了第十一届三中全会。", options: ["A、12", "B、18", "C、15", "D、25"], correctAnswers: ["B"] },
+
+		// ---------- 多选题 ----------
+		{ chapterId: 0, type: "多选", text: "1978年12月18 日,在（ ）都是载入史册的重要日子。", options: ["A、中华民族历史上", "B、在中国共产党历史上", "C、在中华人民共和国历史上", "D、在粉碎“四人帮”中"], correctAnswers: ["A","B","C"] },
+		{ chapterId: 0, type: "多选", text: "习近平强调，40年的实践充分证明，改革开放（ ）", options: ["A、是决定实现“两个一百年”奋斗目标、实现中华民族伟大复兴的关键一招。", "B、是决定当代中国命运的关键一招", "C、是党和人民大踏步赶上时代的重要法宝", "D、是坚持和发展中国特色社会主义的必由之路"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 0, type: "多选", text: "马克思主义关于社会生产力发展的理论（ ）", options: ["A、经济基础决定上层建筑", "B、生产关系和上层建筑具有反作用", "C、生产力决定生产关系", "D、任何社会均由生产力与生产关系、经济基础与上层建筑构成基本框架"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 0, type: "多选", text: "邓小平同志曾经说：“文化大革命”结束时，（ ）", options: ["A、我们要赶上时代，这是改革要达到的目的。", "B、我们必须通过改革开放，增强我国社会主义的生机活力。", "C、就整个经济情况来说，实际上是处于缓慢发展和停滞状态。", "D、就整个政治局面来说，是一个混乱状态。"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 0, type: "多选", text: "上世纪80年代，党中央决定兴办深圳、（ ）、（ ）厦门等经济特区", options: ["A、天津", "B、汕头", "C、海口", "D、珠海"], correctAnswers: ["B","D"] },
+		{ chapterId: 0, type: "多选", text: "一个民族的兴衰、一个国家的强弱、一个政党的成败，可以从多种原因作出解读，但归根到底，都可以从（ ），（ ），（ ）、（ ）。", options: ["A、是否解放和发展了生产力", "B、是否创造了新的社会关系和新的思想理论", "C、是否激发了广大人民的创造活力来判断", "D、是否创造了新的科学技术"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 0, type: "多选", text: "生产力的发展，主要涉及（ ）、（ ）和（ ）三大实体性要素", options: ["A、劳动资料", "B、劳动力", "C、生产关系", "D、劳动对象"], correctAnswers: ["A","B","D"] },
+		{ chapterId: 0, type: "多选", text: "党的十一届三中全会，我党基于（ ）做出改革开放的重要决策。", options: ["A、时代背景", "B、政治背景", "C、国内背景", "D、国际背景"], correctAnswers: ["A","C","D"] },
+		{ chapterId: 0, type: "多选", text: "“创新是改革开放的生命。”这是（ ）", options: ["A、改革开放40年实践的重要启示", "B、是改革开放生生不息、持续不止的生命源泉", "C、是中华民族、中国特色社会主义、中国人民“三个伟大飞跃”的巨大动力", "D、习近平总书记在庆祝改革开放40周年大会上的重要讲话内容"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 0, type: "多选", text: "1979年7月15日，中央正式批准（ ）两省在对外经济活动中实行特殊政策、灵活措施，迈开了改革开放的历史性脚步。", options: ["A、福建", "B、广东", "C、海南", "D、江苏"], correctAnswers: ["A","B"] },
+
+		// ---------- 填空题 ----------
+		{ chapterId: 0, type: "填空", text: "20世纪70年代以后，国际形势和世界政治格局发生了重大变化，（ ）与（ ）逐步成为世界潮流", fillAnswers: ["和平", "发展"] },
+
+		// ---------- 判断题 ----------
+		{ chapterId: 0, type: "判断", text: "十六大以后，中国进入全面深化改革新时期。", options: ["正确", "错误"], correctAnswers: ["错误"] },
+		{ chapterId: 0, type: "判断", text: "1984年邓小平的“南方谈话”发布中国改革进入了新的阶段。", options: ["正确", "错误"], correctAnswers: ["错误"] },
+		{ chapterId: 0, type: "判断", text: "创新是改革开放的生命。“这是改革开放40年实践的重要启示，是改革开放生生不息、持续不止的生命源泉，是中华民族、中国特色社会主义、中国人民“三个伟大飞跃”的巨大动力。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 0, type: "判断", text: "20世纪70年代以后，世界大战短期内打不起来，中国争取一个长期和平发展环境是可能的，这为我国实行改革开放提供了重要的外部条件。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 0, type: "判断", text: "2001年12月，经过18年的谈判，中国正式加入世界贸易组织(WTO)", options: ["正确", "错误"], correctAnswers: ["错误"] },
+		{ chapterId: 0, type: "判断", text: "改革开放是我们党的一次伟大觉醒。", options: ["正确", "错误"], correctAnswers: ["正确"] }
+    );
+
+    // ===================== 章节1: 本节测验 (十一届三中全会等) =====================
+    questionsData.push(
+		{ chapterId: 1, type: "单选", text: "党的十一届三中全会是在（ ）召开", options: ["A、1978年12月15日", "B、1978年12月18日", "C、1978年11月10日", "D、1978年12月13日"], correctAnswers: ["B"] },
+		{ chapterId: 1, type: "单选", text: "歌曲《春天的故事》中有一句歌词唱到：“1979年，那是一个春天，有一位老人在中国的南海边画了一个圈，神话般的崛起座座城市，奇迹般的聚起座座金山”其中，“画了一个圈”是指（ ）", options: ["A、喀什经济特区", "B、建立长江三角洲经济特区", "C、设立海南经济特区", "D、在闽粤沿海设立经济特区"], correctAnswers: ["D"] },
+		{ chapterId: 1, type: "单选", text: "邓小平的这篇主题为“解放思想，实事求是，团结一致向前看”的讲话成为随后召开（ ）的主题报告的主导内容", options: ["A、十一届三中全会", "B、十四大", "C、十三大", "D、十二大"], correctAnswers: ["A"] },
+		{ chapterId: 1, type: "单选", text: "党的（ ）审议并一致通过《关于建国以来党的若干历史问题的决议》。", options: ["A、十一届六中全会", "B、十二届六中全会", "C、十一届三中全会", "D、十二届三中全会"], correctAnswers: ["A"] },
+		{ chapterId: 1, type: "单选", text: "“科学技术是第一生产力”的论断是（ ）提出的。", options: ["A、习近平", "B、列宁", "C、马克思", "D、邓小平"], correctAnswers: ["D"] },
+		{ chapterId: 1, type: "单选", text: "1980年，温州成立工商所，（ ）成为温州第一个获得执照的个体户。", options: ["A、章华妹", "B、年广九", "C、鲁冠球", "D、吴仁宝"], correctAnswers: ["A"] },
+		{ chapterId: 1, type: "单选", text: "1990年，中共中央、国务院为进一步对外开放而作出的战略举措是（ ）", options: ["A、开发、开放上海浦东新区", "B、开发、开放海南经济特区", "C、建立厦门经济特区", "D、建立珠海经济特区"], correctAnswers: ["A"] },
+		{ chapterId: 1, type: "单选", text: "1978年5月10日,中央党校内部刊物《理论动态》第 60期刊登(《 》),在全国引起强烈反响,掀起了真理标准问题大讨论。", options: ["A、实践是检验真理的唯一标准", "B、真理是检验实践的唯一标准", "C、两个凡是", "D、马克思主义的一个最基本的原则"], correctAnswers: ["A"] },
+		{ chapterId: 1, type: "单选", text: "我国第一家信托投资公司成立于（ ）", options: ["A、1979年10月", "B、1949年5月", "C、1979年3月", "D、1984年11月"], correctAnswers: ["A"] },
+		{ chapterId: 1, type: "单选", text: "2020是上海浦东开发开放（ ）周年。", options: ["A、10周年", "B、30周年", "C、40周年", "D、20周年"], correctAnswers: ["B"] },
+		{ chapterId: 1, type: "单选", text: "邓小平在会上指出，四个现代化，关键是（ ）", options: ["A、国防现代化", "B、科学技术现代化", "C、工业现代化", "D、农业现代化"], correctAnswers: ["B"] },
+		{ chapterId: 1, type: "单选", text: "在计划经济体制下，企业吃国家的“大锅饭”，职工吃企业的“大锅饭”。这一局面得到扭转主要得益于", options: ["A、联产承包责任制", "B、国有企业改革", "C、大跃进运动", "D、以阶级斗争为纲"], correctAnswers: ["B"] },
+		{ chapterId: 1, type: "单选", text: "1977年冬天，关闭（ ）年之久的高考考场大门重新打开。", options: ["A、11", "B、12", "C、15", "D、10"], correctAnswers: ["A"] },
+		{ chapterId: 1, type: "单选", text: "1984年5月4日，中共中央、国务院批转《沿海部分城市座谈会纪要》，决定进一步开放（ ）、上海、大连、秦皇岛、烟台、青岛、连云港、南通、宁波、温州、福州、广州、湛江和北海等14个沿海港口城市，并提出逐步兴办经济技术开发区。", options: ["A、南京", "B、泉州", "C、天津", "D、厦门"], correctAnswers: ["C"] },
+		{ chapterId: 1, type: "单选", text: "1979年，新中国第一家信托投资公司是( )", options: ["A、广州国际信托投资公司", "B、上海国际信托投资公司", "C、中华国际信托投资公司", "D、中国国际信托投资公司"], correctAnswers: ["D"] },
+		{ chapterId: 1, type: "单选", text: "作为改革开放的一个标志性事件，1978年5月11日，《光明日报》刊登题为（ ）的特约评论员文章。", options: ["A、反对本本主义", "B、实践是检验真理的唯一标准", "C、关于正确处理人民内部矛盾的问题", "D、论十大关系"], correctAnswers: ["B"] },
+		{ chapterId: 1, type: "单选", text: "（ ），中国共产党历史上第一个关于农村工作的一号文件——家庭联产承包责任制出台。", options: ["A、1978年11月24日", "B、1978年12月18日", "C、1979年2月19日", "D、1982年1月1日"], correctAnswers: ["D"] },
+		{ chapterId: 1, type: "单选", text: "1978年，发表于《人民文学》第1期的报告文学《哥德巴赫猜想》的作者是（ )", options: ["A、熊庆来", "B、华罗庚", "C、陈景润", "D、哥德巴赫"], correctAnswers: ["C"] },
+		{ chapterId: 1, type: "单选", text: "1988年，中共中央、国务院决定建立的经济特区是（ ）", options: ["A、深圳经济特区", "B、海南经济特区", "C、珠海经济特区", "D、厦门经济特区"], correctAnswers: ["B"] },
+		{ chapterId: 1, type: "单选", text: "1978年，中国共产党重新确立实事求是思想路线的会议是（ ）", options: ["A、中共十一届三中全会", "B、中共十二届六中全会", "C、中共十一届六中全会", "D、中共十二届三中全会"], correctAnswers: ["A"] },
+		{ chapterId: 1, type: "单选", text: "1978年12月18 日，在北京罕见的大雪天里，具有划时代意义的（ ）隆重召开", options: ["A、党的十二大", "B、党的十一届三中全会", "C、党的十三大", "D、党的十届三中全会"], correctAnswers: ["B"] },
+		{ chapterId: 1, type: "单选", text: "( )拉开了改革开放的伟大序幕。自那时起,改革成为时代强音,开放成为时代潮流。", options: ["A、党的十一届三中全会", "B、恢复高考", "C、党的十一届六中全会", "D、中国共产党第十八次全国代表大会"], correctAnswers: ["A"] },
+		{ chapterId: 1, type: "单选", text: "“两个凡是”最早是由（ ）于1977年1月的一份讲话稿内提出的。", options: ["A、毛泽东", "B、邓小平", "C、陈云", "D、华国锋"], correctAnswers: ["D"] },
+
+		// ---------- 判断题 (24-34) ----------
+		{ chapterId: 1, type: "判断", text: "“两个凡是”不是马克思主义，不是毛泽东思想。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 1, type: "判断", text: "1978年，我国货物进出口总额只有206亿美元，世界排名第34位。", options: ["正确", "错误"], correctAnswers: ["错误"] },
+		{ chapterId: 1, type: "判断", text: "“两个凡是”观点实质上是主张只要照抄马克思、列宁、毛泽东同志的原话，照抄照转照搬就行了。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 1, type: "判断", text: "1977年4月，邓小平致信华国锋、叶剑英和党中央，指出“我们必须世世代代地用准确的完整的毛泽东思想来指导我们全党、全军和全国人民，把党和社会主义的事业，把国际共产主义运动的事业，胜利地推向前进”。 即是支持“两个凡是”的观点。", options: ["正确", "错误"], correctAnswers: ["错误"] },
+		{ chapterId: 1, type: "判断", text: "1978年9月，邓小平视察本溪、大庆、哈尔滨、长春、沈阳、鞍山、唐山、天津等地，发表了一系列重要谈话，后被称为“南方谈话”。", options: ["正确", "错误"], correctAnswers: ["错误"] },
+		{ chapterId: 1, type: "判断", text: "1979年9月，国务院将给予广东、福建两省的外贸经营自主权扩大到北京、上海、海口三市", options: ["正确", "错误"], correctAnswers: ["错误"] },
+		{ chapterId: 1, type: "判断", text: "中国第一家信托投资公司是中国国际信托投资公司，成立于1979年。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 1, type: "判断", text: "马列主义、毛泽东思想的基本原则任何时候都不能违背，但一定要实事求是, 从实际出发，理论和实践相结合。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 1, type: "判断", text: "1977年的高考不是在夏天，而是在冬天举行的。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 1, type: "判断", text: "《实践是检验真理的唯一标准》文章是时年43岁的南京大学哲学系副主任胡福明独撰的。", options: ["正确", "错误"], correctAnswers: ["错误"] },
+		{ chapterId: 1, type: "判断", text: "1984年邓小平视察深圳、珠海、厦门3个经济特区时，肯定了经济特区的发展势头，并欣然为深圳、珠海分别题词：“深圳的发展和经验证明，我们建立经济特区的政策是正确的” “把经济特区办得更快些更好些”。", options: ["正确", "错误"], correctAnswers: ["错误"] },
+
+		// ---------- 多选题 (35-43) ----------
+		{ chapterId: 1, type: "多选", text: "中国共产党召开十一届三中全会，重新确立马克思主义的（ ）", options: ["A、组织路线", "B、政治路线", "C、文化路线", "D、思想路线"], correctAnswers: ["A","B","D"] },
+		{ chapterId: 1, type: "多选", text: "1978年5月10日，中央党校内部刊物《理论动态》第 60期刊登《实践是检验真理的唯一标准》认为（ ）", options: ["A、社会实践不仅是检验真理的标准，而且是唯一的标准", "B、任何理论都要不断接受检验，凡是科学的理论都不会害怕实践的检验", "C、理论与实践的统一是马克思主义最基本的原则", "D、检验真理的标准只能是社会实践"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 1, type: "多选", text: "中共十一届三中全会深远的历史意义主要体现在（ ）。", options: ["A、结束了粉碎“四人帮”后党和国家的工作在徘徊中前进的局面", "B、形成了以邓小平为核心的中共中央领导集体", "C、开始了党在思想、政治、组织等领域的全面拨乱反正", "D、揭开了社会主义改革开放的序幕"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 1, type: "多选", text: "1978年12月18 日 ，党的十一届三中全会（ ）", options: ["A、冲破长期“左”的错误的严重束缚，彻底否定“两个凡是”的错误方针", "B、明确科学地认识毛泽东同志的伟大功绩，完整地、准确地掌握毛泽东思想的科学体系", "C、停止使用“以阶级斗争为纲”的口号，决定从1979年1月起，把党的工作着重点和全国人民的注意力转移到社会主义现代化建设上来。", "D、强调实现四个现代化，要求大幅度地提高生产力"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 1, type: "多选", text: "1980年5月，中共中央决定设立的经济特区有（ ）", options: ["A、厦门经济特区", "B、深圳经济特区", "C、汕头经济特区", "D、珠海经济特区"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 1, type: "多选", text: "1980年8月18 日,邓小平在中央政治局扩大会议上作了《党和国家领导制度的改革》讲话，批评了当时存在的（ ）", options: ["A、干部领导职务终身制现象和形形色色的特权现象", "B、家长制现象", "C、官僚主义现象", "D、权力过分集中现象"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 1, type: "多选", text: "《关于建国以来党的若干历史问题的决议》（ ）", options: ["A、正确评价毛了泽东的历史地位，坚决维护了毛泽东思想的科学体系", "B、科学指明了新起点上中国社会主义继续发展的前进方向", "C、初步提出了在中国建设什么样的社会主义和怎样建设社会主义的问题", "D、解决了我国人民日益增长的物质文化需要同落后的社会生产之间的矛盾"], correctAnswers: ["A","B","C"] },
+		{ chapterId: 1, type: "多选", text: "中国共产党召开十一届三中全会，（ ）开启了改革开放和社会主义现代化建设的伟大征程。", options: ["A、实行改革开放的历史性决策", "B、作出把党和国家工作中心转移到社会主义现代化建设上来", "C、实现了新中国成立以来党的历史上具有深远意义的伟大转折", "D、重新确立马克思主义的思想路线、政治路线和组织路线"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 1, type: "多选", text: "导致我国建国以来科学技术进步缓慢的主要原因（ ）", options: ["A、科技人员没有应有的社会地位，并受到歧视", "B、要通过外语才能看到国外科学技术方面的文献，而当时的知识份子很少懂外语", "C、正规的知识教育受到冲击", "D、当时的环境中很难学习国外较为先进的科学技术知识"], correctAnswers: ["A","C","D"] },
+
+		// ---------- 填空题 (44-46) ----------
+		{ chapterId: 1, type: "填空", text: "（ ）第一个明确提出反对“两个凡是”的错误方针,提出要“完整地准确地理解和运用毛泽东思想”。", fillAnswers: ["邓小平"] },
+		{ chapterId: 1, type: "填空", text: "1980年8月，党和国家批准在深圳、珠海、汕头、___设置经济特区。", fillAnswers: ["厦门"] },
+		{ chapterId: 1, type: "填空", text: "“两个凡是”，即“凡是（ ），我们都坚决维护，凡是（ ），我们都始终不渝地遵循”", fillAnswers: ["毛主席作出的决策", "毛主席的指示"] }
+    );
+
+    // ===================== 章节2: 第二章 改革开放全面展开 =====================
+    questionsData.push(
+        { chapterId: 2, type: "单选", text: "改革开放以后，邓小平同志提出了一手抓物质文明建设、一手抓（　　）文明建设，一手抓坚持四项基本原则、一手抓改革开放，一手抓建设、一手抓法制等“两手抓、两手都要硬”的思想，保证了改革开放和社会主义现代化建设顺利推进。", options: ["A、文化", "B、精神", "C、科技", "D、思想"], correctAnswers: ["B"] },
+		{ chapterId: 2, type: "单选", text: "为适应改革开放和社会主义现代化建设的需要，我国分别于1988年、1993 年、1999年、()年、2018年先后5次对宪法进行修改。", options: ["A、2006", "B、2005", "C、2003", "D、2004"], correctAnswers: ["D"] },
+		{ chapterId: 2, type: "单选", text: "1987年4月13日，中葡两国政府在北京正式签署《中华人民共和国政府和葡萄牙共和国政府关于澳门问题的联合声明》，确认中国政府于（）年12月20日对澳门恢复行使主权。", options: ["A、1997", "B、1998", "C、1999", "D、2000"], correctAnswers: ["C"] },
+		{ chapterId: 2, type: "单选", text: "1990年，中共中央、国务院为进一步对外开放而作出的战略举措是（）", options: ["A、建立珠海经济特区", "B、建立厦门经济特区", "C、开发、开放海南经济特区", "D、开发、开放上海浦东新区"], correctAnswers: ["D"] },
+		{ chapterId: 2, type: "单选", text: "1988年，中共中央、国务院决定建立的经济特区是（）", options: ["A、海南经济特区", "B、深圳经济特区", "C、厦门经济特区", "D、珠海经济特区"], correctAnswers: ["A"] },
+		{ chapterId: 2, type: "单选", text: "1992年召开的中共十四大明确提出，我国经济体制改革的目标是建立（）", options: ["A、市场为主、计划为辅的经济体制", "B、计划为主、市场为辅的经济体制", "C、社会主义有计划商品经济体制", "D、社会主义市场经济体制"], correctAnswers: ["D"] },
+		{ chapterId: 2, type: "单选", text: "以下不属于我国现行民主党派的是：", options: ["A、中国民主同盟", "B、中国共产党", "C、中国国民党革命委员会", "D、中国民主促进会"], correctAnswers: ["B"] },
+		{ chapterId: 2, type: "单选", text: "1984年5月4日，中共中央、国务院批转《沿海部分城市座谈会纪要》，决定进一步开放（）、上海、大连、秦皇岛、烟台、青岛、连云港、南通、宁波、温州、福州、广州、湛江和北海等14个沿海港口城市，并提出逐步兴办经济技术开发区。", options: ["A、泉州", "B、南京", "C、天津", "D、厦门"], correctAnswers: ["C"] },
+		{ chapterId: 2, type: "单选", text: "1989年12月30日，中共中央制定《关于坚持和完善中国共产党领导的多党合作和政治协商制度的意见》，指出“长期共存、（）、肝胆相照、荣辱与共”是中国共产党同各民主党派合作的基本方针，明确中国共产党领导的多党合作和政治协商制度是我国一项基本政治制度。", options: ["A、互帮互助", "B、互相监督", "C、互相包容", "D、互相鼓励"], correctAnswers: ["B"] },
+		{ chapterId: 2, type: "单选", text: "1989 年 11 月 6 日至 9 日，（）通过《中共中央关于进一步治理整顿和深化改革的决定》，同意邓小平辞去中央军事委员会主席职务，决定江泽民为中央军事委员会主席。", options: ["A、党的十三届三中全会", "B、党的十三届四中全会", "C、党的十三届六中全会", "D、党的十三届五中全会"], correctAnswers: ["D"] },
+		{ chapterId: 2, type: "单选", text: "1992年召开的中共十四大明确提出，我国经济体制改革的目标是建立（）。", options: ["A、市场为主、计划为辅的经济体制", "B、社会主义有计划商品经济体制", "C、社会主义市场经济体制", "D、计划为主、市场为辅的经济体制"], correctAnswers: ["C"] },
+		{ chapterId: 2, type: "单选", text: "中共十三大明确将党在社会主义初级阶段的基本路线概括为（）。", options: ["A、建设中国特色社会主义经济、政治和文化", "B、“四个坚持”", "C、一手抓物质文明，一手抓精神文明", "D、“一个中心，两个基本点”"], correctAnswers: ["D"] },
+		{ chapterId: 2, type: "单选", text: "1982年1月13日,邓小平在中共中央政治局扩大会议上讲话时提出干部队伍( )的“四化”方针。", options: ["A、革命化、年轻化、知识化、专业化", "B、现代化、信息化、专业化、知识化", "C、革命化、制度化、专业化、年轻化", "D、制度化、知识化、专业化、先进化"], correctAnswers: ["A"] },
+		{ chapterId: 2, type: "单选", text: "（）11 月，海峡两岸关系协会与台湾海峡交流基金会，在两岸事务性商谈中就表述“海峡两岸均坚持一个中国原则”达成共识，后被称为“九二共识”。1993 年 4 月，海峡两岸关系协会会长汪道涵和台湾海峡交流基金会董事长辜振甫在新加坡会谈并签订《汪辜会谈共同协议》等四项协议，被称为“汪辜会谈”。", options: ["A、1992 年", "B、1995 年", "C、1994 年", "D、1993 年"], correctAnswers: ["A"] },
+		{ chapterId: 2, type: "单选", text: "1987年10月25日－11月1日，（）举行。大会通过的报告《沿着有中国特色的社会主义道路前进》，阐述了社会主义初级阶段理论，提出了党在社会主义初级阶段的基本路线，制定了到21世纪中叶分三步走、实现现代化的发展战略。", options: ["A、中国共产党第十三次全国代表大会", "B、中国共产党第十四次全国代表大会", "C、中国共产党第十一届中央委员会第三次全体会议", "D、中国共产党第十五次全国代表大会"], correctAnswers: ["A"] },
+		{ chapterId: 2, type: "单选", text: "1990年11月26日，新中国成立以来在中国大陆开业的第一家证券交易所——（）正式成立。", options: ["A、上海期货交易所", "B、深圳期货交易所", "C、上海证券交易所", "D、深圳证券交易所"], correctAnswers: ["C"] },
+		{ chapterId: 2, type: "多选", text: "1980年5月，中共中央决定设立的经济特区有（）", options: ["A、珠海经济特区", "B、汕头经济特区", "C、厦门经济特区", "D、深圳经济特区"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 2, type: "多选", text: "1983年4月29日，邓小平在《建设社会主义的物质文明和精神文明》一文中指出：“在社会主义国家，一个真正的马克思主义政党在执政以后，一定要致力于发展生产力，并在这个基础上逐步提高人民的生活水平。这就是建设物质文明。过去很长一段时间，我们忽视了发展生产力，所以现在我们要特别注意建设物质文明。与此同时，还要建设社会主义的精神文明，最根本的是要使广大人民有共产主义的理想，有道德，有（　），守（　）。”", options: ["A、文化", "B、科学", "C、纪律", "D、担当"], correctAnswers: ["A","C"] },
+		{ chapterId: 2, type: "多选", text: "邓小平在1992年南方谈话中明确指出，社会主义的本质是（）。", options: ["A、消除两极分化", "B、消灭剥削", "C、解放生产力，发展生产力", "D、最终达到共同富裕"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 2, type: "多选", text: "上世纪80年代，党中央决定兴办深圳、（）、（）厦门等经济特区，打破了计划经济体制的坚冰，打开了吸引外资的局面，成为对外开放的重要“试验田”和重要“窗口”。", options: ["A、天津", "B、汕头", "C、海口", "D、珠海"], correctAnswers: ["B","D"] }
+    );
+
+    // ===================== 章节3: 第三章 改革开放开创新局面 =====================
+    questionsData.push(
+        { chapterId: 3, type: "单选", text: "党的十六大报告科学作出了新世纪头（　）年是我国一个重要战略机遇期的重大判断，提出了全面建设小康社会的奋斗目标。", options: ["A、10", "B、5", "C、20", "D、15"], correctAnswers: ["C"] },
+		{ chapterId: 3, type: "单选", text: "（），中共中央决定，军队、武警部队和政法机关一律不再从事经商活动。", options: ["A、1996 年 9 月", "B、1997 年 8 月", "C、1998 年 9 月", "D、2000 年 9 月"], correctAnswers: ["C"] },
+		{ chapterId: 3, type: "单选", text: "1993 年 2 月 13 日，中共中央、国务院印发《中国教育改革和发展纲要》，提出到（），要实现全国基本普及九年义务教育的目标。", options: ["A、2050 年底", "B、2020 年底", "C、20 世纪末", "D、2037 年底"], correctAnswers: ["C"] },
+		{ chapterId: 3, type: "单选", text: "党的十五大在我国经济发展“三步走”战略第二步目标即将实现之际，放眼21世纪中叶，对如何实现第三步目标作出进一步规划，提出新“三步走”发展战略", options: ["A、十五大", "B、十四大", "C、十七大", "D、十六大"], correctAnswers: ["A"] },
+		{ chapterId: 3, type: "单选", text: "为加入世贸组织，我国开展了长达（）年的艰苦谈判。", options: ["A、13", "B、15", "C、7", "D、10"], correctAnswers: ["B"] },
+		{ chapterId: 3, type: "单选", text: "1999 年 10 月 1 日，首都各界庆祝中华人民共和国成立（）大会在天安门广场举行，江泽民检阅受阅部队。", options: ["A、70 周年", "B、50 周年", "C、80 周年", "D、60 周年"], correctAnswers: ["B"] },
+		{ chapterId: 3, type: "单选", text: "2000年2月21日至25日，江泽民在（）考察工作，围绕加强新时期党的建设和推进高新技术产业发展两个项目进行调研。考察期间，江泽民完整地提出了“三个代表”重要思想。", options: ["A、广东", "B、云南", "C、福建", "D、广西"], correctAnswers: ["A"] },
+		{ chapterId: 3, type: "单选", text: "党的十五大提出，进一步扩大社会主义民主，健全社会主义法制，（），建设社会主义法治国家。", options: ["A、以德治国", "B、依法执政", "C、全民守法", "D、依法治国"], correctAnswers: ["D"] },
+		{ chapterId: 3, type: "单选", text: "1994 年 9 月 25 日至 28 日，（）通过《中共中央关于加强党的建设几个重大问题的决定》，把党的建设提到新的伟大工程高度，明确了党的建设的总目标和总任务。", options: ["A、党的十四届三中全会", "B、党的十五届四中全会", "C、党的十四届四中全会", "D、党的十四届二中全会"], correctAnswers: ["C"] },
+		{ chapterId: 3, type: "单选", text: "（）11 月，海峡两岸关系协会与台湾海峡交流基金会，在两岸事务性商谈中就表述“海峡两岸均坚持一个中国原则”达成共识，后被称为“九二共识”。1993 年 4 月，海峡两岸关系协会会长汪道涵和台湾海峡交流基金会董事长辜振甫在新加坡会谈并签订《汪辜会谈共同协议》等四项协议，被称为“汪辜会谈”。", options: ["A、1995年", "B、1994年", "C、1993年", "D、1992 年"], correctAnswers: ["D"] },
+		{ chapterId: 3, type: "单选", text: "2001年12月，经过15年的谈判，中国正式加入世界贸易组织(WTO)，成为全球多边贸易大家庭的第个成员。", options: ["A、142", "B、89", "C、143", "D、156"], correctAnswers: ["C"] },
+		{ chapterId: 3, type: "单选", text: "（）南水北调工程开工。2013年11月15日南水北调东线一期工程正式通水，2014年12月12日，中线一期工程正式通水。", options: ["A、2003年12月27日", "B、2002年12月27日", "C、2000年12月27日", "D、2001年12月27日"], correctAnswers: ["B"] },
+		{ chapterId: 3, type: "单选", text: "1992年召开的中共十四大明确提出，我国经济体制改革的目标是建立（）。", options: ["A、计划为主、市场为辅的经济体制", "B、社会主义有计划商品经济体制", "C、市场为主、计划为辅的经济体制", "D、社会主义市场经济体制"], correctAnswers: ["D"] },
+		{ chapterId: 3, type: "单选", text: "（）7月1日零时，中华人民共和国国歌奏响，中华人民共和国国旗和中华人民共和国香港特别行政区区旗冉冉升起。江泽民庄严宣告：中国政府对香港恢复行使主权。", options: ["A、1997年", "B、1998年", "C、1995年", "D、1999年"], correctAnswers: ["A"] },
+		{ chapterId: 3, type: "单选", text: "20世纪90年代，（）这个词，成为经济体制转型和国有企业改革、脱困与重组过程中“阵痛”的标志性词语之一。", options: ["A、“下海”", "B、“失业”", "C、“辞职”", "D、“下岗”"], correctAnswers: ["D"] },
+		{ chapterId: 3, type: "单选", text: "1999年（），中国恢复对澳门行使主权，澳门回归是祖国统一大业道路上的又一丰碑。", options: ["A、12月20日", "B、11月1日", "C、10月1日", "D、12月1日"], correctAnswers: ["A"] },
+		{ chapterId: 3, type: "单选", text: "到（）年，中国成功实现由计划经济体制向社会主义市场经济体制的转变，市场在资源配置中的基础性作用明显增强，市场价格形成机制逐步建立，社会主义市场经济体制基本框架初步建立。", options: ["A、2002", "B、2000", "C、2001", "D、2003"], correctAnswers: ["B"] },
+		{ chapterId: 3, type: "单选", text: "1993年，作为全国第一家地方性国有资产监督管理委员会，（）国有资产监督管理委员会成立，在全国率先推进行业主管局改制和授权经营。", options: ["A、厦门市", "B、北京市", "C、深圳市", "D、上海市"], correctAnswers: ["D"] },
+		{ chapterId: 3, type: "单选", text: "1996 年 10 月 7 日至 10 日，（）通过《中共中央关于加强社会主义精神文明建设若干重要问题的决议》。", options: ["A、党的十四届六中全会", "B、党的十三届五中全会", "C、党的十五届七中全会", "D、党的十六届七中全会"], correctAnswers: ["A"] },
+		{ chapterId: 3, type: "单选", text: "党的（）审议通过《中共中央关于建立社会主义市场经济体制若干问题的决定》，将党的十四大提出的经济体制改革目标和基本原则进一步具体化。", options: ["A、十四届一中全会", "B、十四届三中全会", "C、十四届二中全会", "D、十四届四中全会"], correctAnswers: ["B"] },
+		{ chapterId: 3, type: "单选", text: "（）年2月19日，改革开放和现代化建设的总设计师邓小平逝世。", options: ["A、1996", "B、1997", "C、1994", "D、1995"], correctAnswers: ["B"] },
+		{ chapterId: 3, type: "单选", text: "（），国务院常务会议通过《中国 21 世纪议程（草案）》，确定实施可持续发展战略。", options: ["A、1993 年 3 月 30 日", "B、1994 年 3 月 25 日", "C、1994 年 3 月 30 日", "D、1995 年 3 月 25 日"], correctAnswers: ["B"] },
+		{ chapterId: 3, type: "单选", text: "1998 年（）通过了《国务院机构改革方案》。", options: ["A、党的十五届三中全会", "B、党的十五届四中全会", "C、党的十五届二中全会", "D、党的十五届一中全会"], correctAnswers: ["C"] },
+		{ chapterId: 3, type: "多选", text: "党的十四届三中全会后，（）等逐步展开，全国呈现出改革开放全面推进、经济建设迅猛发展的蓬勃景象。", options: ["A、国有企业继续改革", "B、住房改革", "C、投资体制改革", "D、财税体制改革"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 3, type: "多选", text: "党的十四届三中全会通过《中共中央关于建立社会主义市场经济体制若干问题的决定》，指出要积极推进财税体制改革，把地方财政包干制改为在合理划分（）事权基础上的分税制，建立（）体系。", options: ["A、中央税收和地方税收", "B、中央与地方", "C、国家与地方", "D、国家税收与地方税收"], correctAnswers: ["A","B"] },
+		{ chapterId: 3, type: "多选", text: "1993年4月，党中央再次召开经济情况通报会，讨论解决乱集资、乱拆借、房地产热和开发区热等问题。5月，党中央召开华东六省一市经济工作座谈会，提出要把加快发展的注意力集中到（）上来。", options: ["A、转换机制", "B、深化改革", "C、提高效率", "D、优化结构"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 3, type: "多选", text: "1995年5月，八届全国人大常委会第十三次会议通过《中华人民共和国商业银行法》，（）、（）、（）、建设银行四家国有专业银行改革为国有独资商业银行，实行自主经营、自担风险、自负盈亏、自我约束的经营机制。", options: ["A、农业银行", "B、招商银行", "C、工商银行", "D、中国银行"], correctAnswers: ["A","C","D"] },
+		{ chapterId: 3, type: "多选", text: "党的十五大发出了国有企业改革与脱困动员令：通过（）、（）、（）和加强管理，用3年左右的时间解决国有大中型企业亏损困局；力争到20世纪末实现在大多数国有大中型骨干企业初步建立起现代企业制度的目标。", options: ["A、改革", "B、改良", "C、改组", "D、改造"], correctAnswers: ["A","C","D"] },
+		{ chapterId: 3, type: "多选", text: "20世纪90年代后期，党中央根据经济全球化的发展趋势与国内改革开放的发展实际，在“（）”基础上，适时提出实施“（）”战略，形成二者相结合的全方位、多层次、宽领域的对外开放新格局。", options: ["A、走出去", "B、拿过来", "C、送出去", "D、引进来"], correctAnswers: ["A","D"] },
+		{ chapterId: 3, type: "判断", text: "1995年6月，上海城市合作商业银行作为中国第一家地方性股份制银行正式开业。", options: ["正确", "错误"], correctAnswers: ["错误"] },
+		{ chapterId: 3, type: "判断", text: "党的十六大是在世纪之交的关键时刻召开的一次承前启后、继往开来的重要会议，明确回答了改革开放和社会主义现代化建设的一系列重大理论和实践问题，从思想上、政治上、组织上为我国实现跨世纪发展提供了重要保证。", options: ["正确", "错误"], correctAnswers: ["错误"] },
+		{ chapterId: 3, type: "判断", text: "继招商银行、中信银行成立之后，1992年8月，中国光大银行在北京成立,成为第三家由国有企业兴办的银行。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 3, type: "判断", text: "1995年5月，党中央、国务院颁布《关于加速科学技术进步的决定》，动员全党和全社会实施科教兴国战略，加速全社会科技进步，全面落实科学技术是第一生产力的要求。这是党中央和国务院总结历史经验，并根据世界发展形势和中国现实情况作出的重大部署。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 3, type: "判断", text: "新“三步走”发展战略，即21世纪第一个10年实现国民生产总值比2000年翻一番，使人民的小康生活更加宽裕，形成比较完善的社会主义市场经济体制；再经过10年的努力，到建党一百年时，使国民经济更加发展，各项制度更加完善；到21世纪中叶新中国成立一百年时，基本实现现代化，建成富强民主文明的社会主义国家。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 3, type: "判断", text: "党的十四届五中全会突出强调，要坚持区域经济协调发展，逐步缩小地区发展差距。党的十五届四中全会明确提出国家要实施东部大开发战略。", options: ["正确", "错误"], correctAnswers: ["错误"] }
+    );
+
+    // ===================== 章节4: 第四章 科学发展观 =====================
+    questionsData.push(
+        { chapterId: 4, type: "单选", text: "科学发展观的基本要求是( ) 。", options: ["A、全面协调可持续", "B、注重积累", "C、以人为本", "D、注重效率，兼顾公平"], correctAnswers: ["A"] },
+		{ chapterId: 4, type: "单选", text: "()是党执政兴国的第一要务，是解决我国所有问题的基础和关键", options: ["A、统筹", "B、协调", "C、改革", "D、发展"], correctAnswers: ["D"] },
+		{ chapterId: 4, type: "单选", text: "科学发展观是第()代领导集体提出的", options: ["A、第三代", "B、第一代", "C、第四代", "D、第二代"], correctAnswers: ["C"] },
+		{ chapterId: 4, type: "单选", text: "把经济建设、政治建设、文化建设、()四位一体的中国特色社会主义事业总体布局写入党章，对于夺取全面建设小康社会新胜利、开创中国特色社会主义事业新局面，具有重大意义。( )", options: ["A、对外开放", "B、社会建设", "C、改革建设", "D、党的建设"], correctAnswers: ["B"] },
+		{ chapterId: 4, type: "单选", text: "十七大报告指出“建设        ，基本形成节约能源资源和保护生态环境的产业结构、增长方式、消费模式。” ( )", options: ["A、社会文明", "B、精神文明", "C、生态文明", "D、政治文明"], correctAnswers: ["C"] },
+		{ chapterId: 4, type: "单选", text: "十七大党章修改中，把( )写入党章。", options: ["A、经济发展观", "B、科学发展观", "C、三个代表重要思想", "D、社会发展观"], correctAnswers: ["B"] },
+		{ chapterId: 4, type: "单选", text: "社会主义核心价值体系是社会主义 ( ) 本质体现。", options: ["A、意识形态", "B、基本特征", "C、政治体制", "D、发展历史"], correctAnswers: ["A"] },
+		{ chapterId: 4, type: "单选", text: "中国共产党第十七次全国代表大会的主题是:高举中国特色社会主义伟大旗帜，以邓小平理论和“三个代表”重要思想为指导，深入贯彻落实() ，继续解放思想，坚持改革开放，推动科学发展，促进社会和谐 ，为夺取全面建设小康社会新胜利而奋斗。", options: ["A、发展改革观", "B、科学发展观", "C、和谐发展观", "D、科学改革观"], correctAnswers: ["B"] },
+		{ chapterId: 4, type: "单选", text: "科学发展观，是立足 (  ) ，总结我国发展实践，借鉴国外发展经验，适应新的发展要求提出来的。", options: ["A、社会主义初级阶段基本国情", "B、当前我国发展的阶段性特征", "C、全面建设小康社会的实践", "D、世界各国国情"], correctAnswers: ["A"] },
+		{ chapterId: 4, type: "单选", text: "改革开放是决定当代中国命运的关键抉择，是发展中国特色社会主义、实现中华民族伟大复兴的( ) 。", options: ["A、基本前提", "B、重要保证", "C、必由之路", "D、必要前提"], correctAnswers: ["C"] },
+		{ chapterId: 4, type: "单选", text: "坚持以人为本，就要始终把( )作为党和国家工作的出发点和落脚点", options: ["A、最广大人民的利益", "B、领导的价值取向", "C、国家的利益", "D、个人的利益"], correctAnswers: ["A"] },
+		{ chapterId: 4, type: "单选", text: "中国共产党第十七次全国代表大会，是在我国改革发展(  )召开的一次十分重要的大会。( )", options: ["A、重要时期", "B、初始阶段", "C、关键阶段", "D、开始阶段"], correctAnswers: ["C"] },
+		{ chapterId: 4, type: "单选", text: "科学发展观的第一要义是 ( )。", options: ["A、发展", "B、人文", "C、公平", "D、效率"], correctAnswers: ["A"] },
+		{ chapterId: 4, type: "单选", text: "加快推进以改善民生为重点的社会建设，必须加快建立覆盖 (  )的社会保障体系，保障人民基本生活。", options: ["A、农民群众", "B、城乡居民", "C、农村居民", "D、城市居民"], correctAnswers: ["B"] },
+		{ chapterId: 4, type: "单选", text: "我国未来经济社会的发展要实现()", options: ["A、既快又好发展", "B、又快又好发展", "C、不慢不快发展", "D、又好又快发展"], correctAnswers: ["D"] },
+		{ chapterId: 4, type: "单选", text: "十七大报告明确提出“ 中国特色社会主义理论体系”，并指出:这一理论体系就是包括邓小平理论、“三个代表”重要思想以及(  )等重大战略思想在内的科学理论体系。", options: ["A、政治发展观", "B、科学发展观", "C、和谐发展观", "D、科学改革观"], correctAnswers: ["B"] },
+		{ chapterId: 4, type: "单选", text: "科学发展观的根本方法是( )", options: ["A、全面、协调、可持续", "B、统筹兼顾", "C、以人为本", "D、发展"], correctAnswers: ["B"] },
+		{ chapterId: 4, type: "单选", text: "全面建设小康社会是党和国家到 (  )的奋斗目标，是全国各族人民的根本利益所在。", options: ["A、2020", "B、2035", "C、2010", "D、2049"], correctAnswers: ["A"] },
+		{ chapterId: 4, type: "单选", text: "提高( )  能力，建设创新型国家。这是国家发展战略的核心，是提高综合国力的关键。", options: ["A、合作共赢", "B、相互协作", "C、开拓创新", "D、自主创新"], correctAnswers: ["D"] },
+		{ chapterId: 4, type: "单选", text: "党的十六届三中全会明确提出的要树立科学发展观，科学发展观的本质和核心是()", options: ["A、实现人的全面发展", "B、坚持以人为本", "C、经济社会的协调发展", "D、实现可持续发展"], correctAnswers: ["B"] },
+		{ chapterId: 4, type: "多选", text: "科学发展就是( )", options: ["A、可持续发展", "B、单一的经济增长", "C、协调发展", "D、全面发展"], correctAnswers: ["A","C","D"] },
+		{ chapterId: 4, type: "多选", text: "党的十六届三中全会明确提出的科学发展观，是指()", options: ["A、坚持以人为本，促进经济社会和人的全面发展", "B、树立协调的发展观", "C、树立可持续的发展观", "D、树立全面的发展观"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 4, type: "多选", text: "中国特色社会主义理论体系包括()", options: ["A、科学发展观", "B、习近平新时代中国特色社会主义思想", "C、毛泽东思想", "D、邓小平理论", "E、三个代表"], correctAnswers: ["A","B","D","E"] },
+		{ chapterId: 4, type: "多选", text: "统筹兼顾指()", options: ["A、统筹城乡发展", "B、统筹人与自然和谐发展", "C、统筹经济社会发展", "D、统筹区域发展"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 4, type: "多选", text: "深入贯彻落实科学发展观对加强党的执政能力建设提出了新要求，要求我们在运用科学发展观指导经济社会发展的实践中，不断提高(       )。", options: ["A、发展社会主义民主政治的能力", "B、建设社会主义先进文化的能力", "C、应对国际局势和处理国际事务的能力", "D、驾驭社会主义市场经济的能力", "E、构建社会主义和谐社会的能力"], correctAnswers: ["A","B","C","D","E"] },
+		{ chapterId: 4, type: "多选", text: "我国社会主义初级阶段的奋斗目标就是要把我国建设成为一个(       )的社会主义现代化国家。", options: ["A、稳定", "B、民主", "C、富强", "D、文明", "E、和谐"], correctAnswers: ["B","C","D","E"] },
+		{ chapterId: 4, type: "多选", text: "要以改革的精神研究和解决党的建设面临的重大理论和现实问题，进一步解决好党的建设的历史性课题是提高()", options: ["A、党的领导人的知识水平", "B、拒腐防变和抵御风险的能力", "C、党的法律意识", "D、党的领导水平和执政水平"], correctAnswers: ["B","D"] },
+		{ chapterId: 4, type: "填空", text: "坚持把发展作为党执政兴国的第一要务，要牢牢扭住____这个中心。", fillAnswers: ["经济建设"] },
+		{ chapterId: 4, type: "填空", text: "深入贯彻落实科学发展观，要求我们积极构建社会主义____社会，这是中国特色社会主义的本质属性。", fillAnswers: ["和谐"] },
+		{ chapterId: 4, type: "填空", text: "我国社会的主要矛盾是人民日益增长的物质文化需要同____之间的矛盾。", fillAnswers: ["落后的社会生产"] },
+		{ chapterId: 4, type: "填空", text: "实现又好又快发展，必须加快转变经济发展方式，大力推动经济增长由粗放型向集约型转变、由片面追求经济增长向全面协调____发展转变。", fillAnswers: ["可持续"] },
+		{ chapterId: 4, type: "填空", text: "科学发展观是对党的三代中央领导集体关于____的重要思想的继承", fillAnswers: ["发展"] },
+		{ chapterId: 4, type: "填空", text: "科学发展观，是立足社会主义____基本国情，总结我国发展实践，借鉴国外发展经验，适应新的发展要求提出来的。", fillAnswers: ["初级阶段"] },
+		{ chapterId: 4, type: "判断", text: "科学发展观强调坚持发展成果由人民共享，走共同富裕道路。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 4, type: "判断", text: "科学发展观是发展中国特色社会之必须坚持和贯彻的重大战略思想。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 4, type: "判断", text: "党的十七大将科学发展观写入党章。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 4, type: "判断", text: "社会主义初级阶段是当代中国最大的实际。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 4, type: "判断", text: "决好“三农”问题，事关全面建设小康社会大局，必须始终作为全党工作的重中之重。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 4, type: "判断", text: "科学发展观是在我国已经走过了社会主义初级阶段的转折关键时期提出的。", options: ["正确", "错误"], correctAnswers: ["错误"] },
+		{ chapterId: 4, type: "判断", text: "我国仍处于并将长期处于社会主义初级阶段的基本国情有所变化。", options: ["正确", "错误"], correctAnswers: ["错误"] },
+		{ chapterId: 4, type: "判断", text: "实现社会公平正义，是社会主义的核心价值，是社会主义本质的内在要求。", options: ["正确", "错误"], correctAnswers: ["正确"] }
+    );
+
+    // ===================== 章节5: 第五章 新时代中国梦 =====================
+    questionsData.push(
+        { chapterId: 5, type: "单选", text: "2012年11月29日,习近平在(    )，首次提出并阐释实现中华民族伟大复兴的中国梦。", options: ["A、中国共产党第十八次全国代表大会", "B、中共中央政治局常务委员会会议上", "C、参观《复兴之路》展览时", "D、参观北京故宫博物院时"], correctAnswers: ["C"] },
+		{ chapterId: 5, type: "单选", text: "( )，就是要坚持以人民为中心，增进人民福祉，促进人的 全面发展，朝着共同富裕方向稳步前进。", options: ["A、人民幸福", "B、民族振兴", "C、走向全球", "D、国家富强"], correctAnswers: ["A"] },
+		{ chapterId: 5, type: "单选", text: "2012年11月15 H,习近平在十八届中央政治局常委 同中外记者见面时指出，历史的接力棒传到了我们手里，我 们一定不负重托，忠于党、忠于祖国、忠于人民，以自己 的最大智慧、力量、心血，作出无愧于历史、无愧于时代、 无愧于人民的业绩。他庄严承诺:“(    ) 就是我们的奋斗目标。”", options: ["A、人民对美好生活的向往", "B、带领中国GDP全球第一", "C、在全球推行中国模式", "D、打败美国霸权主义"], correctAnswers: ["A"] },
+		{ chapterId: 5, type: "单选", text: "2014年12月，习近平在江苏调研时( )提出， 协调推进全面建成小康社会、全面深化改革、全面依法治国、全面从严治党。", options: ["A、第三次", "B、第四次", "C、第二次", "D、首次"], correctAnswers: ["D"] },
+		{ chapterId: 5, type: "单选", text: "(  )，就是要使中华民族更加坚强有力地自立于世界民族之林，为人类作出新的更大的贡献。", options: ["A、走向全球", "B、民族振兴", "C、人民幸福", "D、国家富强"], correctAnswers: ["B"] },
+		{ chapterId: 5, type: "单选", text: "2017年10月18日至24日，中国共产党第(  )次全国 代表大会在北京举行。", options: ["A、二十", "B、十八", "C、十七", "D、十九"], correctAnswers: ["D"] },
+		{ chapterId: 5, type: "单选", text: "(   )，就是要全面建成小康社会，并在此基础上建设社会主义现代化国家。", options: ["A、民族振兴", "B、走向全球", "C、国家富强", "D、人民幸福"], correctAnswers: ["C"] },
+		{ chapterId: 5, type: "单选", text: "党的(   )审议通过《中共中央关于坚持和完善中国特色社会主义制度、推进国家治理体系和治理能力现 代化若干重大问题的决定》，描绘了坚持和完善中国特色社会主义制度的宏伟蓝图。", options: ["A、二十届四中全会", "B、十四届四中全会", "C、十九届四中全会", "D、十九届一中全会"], correctAnswers: ["C"] },
+		{ chapterId: 5, type: "单选", text: "中国共产党第十八次全国代表大会指出:建设中国特色社会主义，总任务是(  )", options: ["A、建立社会主义市场经济体制", "B、实现社会主义现代化和中华民族伟大复兴", "C、社会主义初级阶段", "D、全面建设小康社会"], correctAnswers: ["B"] },
+		{ chapterId: 5, type: "单选", text: "2021年7月1日，庆祝(   )100周年大会在北京天安门 广场隆重举行。", options: ["A、中国共产党成立", "B、人民军队", "C、新中国", "D、共青团"], correctAnswers: ["A"] },
+		{ chapterId: 5, type: "单选", text: "中国共产党第十八次全国代表大会提出“两个一百年”的奋斗目标:在(    )建成富强民主文明和谐的社会主义现代化国家。", options: ["A、新中国成立100年时", "B、中国共产党成立100年时", "C、共青团成立100年时", "D、人民军队成立100年时"], correctAnswers: ["A"] },
+		{ chapterId: 5, type: "单选", text: "(   )是党和人民大踏步赶上时代的重要法宝，是坚持和发展中国特色社会主义的必由之路，是决定当代中国命运的关键一招，也是决定实现“两个一百年”奋斗目标、实现中华民族伟大复兴的关键一招。", options: ["A、改革开放", "B、绿色发展", "C、依法治国", "D、国际支援"], correctAnswers: ["A"] },
+		{ chapterId: 5, type: "单选", text: "中华民族迎来了从站起来、富 来到强起来的伟大飞跃，实现中华民族伟大复兴进入了(    )的历史进程。", options: ["A、波浪前进", "B、无法预期", "C、不可逆转", "D、可能反复"], correctAnswers: ["C"] },
+		{ chapterId: 5, type: "单选", text: "党的十九届五中全会审议通过的《中共中央关于制定国 民经济和社会发展第(  )个五年规划和二O三五年远景目标的建议》", options: ["A、十二", "B、十四", "C、十", "D、十三"], correctAnswers: ["B"] },
+		{ chapterId: 5, type: "单选", text: "党的(   )确立习近平新时代中国特色社会主义思想为党的指导思想，作 出中国特色社会主义进入新时代的重大政治判断，结合“两个一百年”奋斗目标，对决胜全面建成小康社会、开启全 面建设社会主义现代化国家新征程作出了战略部署和安排。", options: ["A、十八大", "B、二十大", "C、十九大", "D、十七大"], correctAnswers: ["C"] },
+		{ chapterId: 5, type: "单选", text: "(   )11月8日至14日召开的中国共产党第十八次全国代表大会，是在我国进入全面建成小康社会决定性阶段 召开的一次十分重要的大会。", options: ["A、2009年", "B、2002年", "C、2018年", "D、2012年"], correctAnswers: ["D"] },
+		{ chapterId: 5, type: "单选", text: "中国共产党第(   )次全国代表大会提出“两个一百年”的奋斗目标:在中国共产党成立100年时全面建成小康社会，在新中国成立100年时建成富强民主文明和谐的社会主义现代化国家。", options: ["A、十七", "B、十九", "C、二十", "D、十八"], correctAnswers: ["D"] },
+		{ chapterId: 5, type: "单选", text: "中国共产党第十八次全国代表大会提出“两个一百年”的奋斗目标:在(   )全面建成小康社会。", options: ["A、人民军队成立100年时", "B、在新中国成立100年时", "C、共青团成立100年时", "D、中国共产党成立100年时"], correctAnswers: ["D"] },
+		{ chapterId: 5, type: "单选", text: "党的(   )审议通过的《中共中央关于全面深化改革若干重大问题的决定》，站在中国特色社会主 义事业发展全局的战略高度，对全面深化改革作岀了顶 层设计和总体规划", options: ["A、十九届三中全会", "B、十八届二中全会", "C、十八届三中全会", "D、十八届四中全会"], correctAnswers: ["C"] },
+		{ chapterId: 5, type: "单选", text: "(    )是党团结带领中国人民进行的一切奋斗、一切牺牲、一切创造的主题。", options: ["A、坚定四个自信", "B、坚持党的领导", "C、美丽中国建设", "D、实现中华民族伟大复兴"], correctAnswers: ["D"] },
+		{ chapterId: 5, type: "单选", text: "党的(   )对法治中国进行了战略部署，明确了全面推进依法治国的战略任务。", options: ["A、十八届三中全会", "B、十八届四中全会", "C、十八届六中全会", "D、十八届五中全会"], correctAnswers: ["B"] },
+		{ chapterId: 5, type: "单选", text: "2018年是改革开放(  )周年。", options: ["A、40", "B、30", "C、20", "D、100"], correctAnswers: ["A"] },
+		{ chapterId: 5, type: "单选", text: "新时代，(   )，迫切需要最大限度集中全党全社会智慧，最大限度调动一切积极因素，敢于啃硬骨头，敢于涉险滩，以更大决心冲破思想观念的束缚、突破利益固化的藩篱。", options: ["A、改革进入起步区", "B、改革进入稳定期", "C、改革进入攻坚期和深水区", "D、改革进入轻松期和收获期"], correctAnswers: ["C"] },
+		{ chapterId: 5, type: "单选", text: "中国共产党第十八次全国代表大会贯穿始终的主线是(   )", options: ["A、全面建成小康社会", "B、坚持和发展中国特色社会主义", "C、中华民族伟大复兴", "D、脱贫攻坚战"], correctAnswers: ["B"] },
+		{ chapterId: 5, type: "单选", text: "党的十八大把(   )建设纳入中国特色社会主义事业总体布局，标志着中国特色社会主义总体布局更 加完善、更加健全。", options: ["A、文化建设", "B、政治建设", "C、生态文明", "D、社会建设"], correctAnswers: ["C"] },
+		{ chapterId: 5, type: "单选", text: "中国共产党第十八次全国代表大会指出:建设中国特色社会主义，总依据是()", options: ["A、中国特色社会主义", "B、共产主义理想信念", "C、社会主义", "D、社会主义初级阶段"], correctAnswers: ["D"] },
+		{ chapterId: 5, type: "单选", text: "党的(   )以来, 以习近平同志为核心的党中央，站在历史新的更高起点上, 围绕实现“两个一百年”奋斗目标和中华民族伟大复兴的总任务，大力推进党的理论创新和实践创新，推动全面深化改革落地生根，以更加开放的姿态拥抱世界。", options: ["A、十六大", "B、十八大", "C、十九大", "D、十七大"], correctAnswers: ["B"] },
+		{ chapterId: 5, type: "多选", text: "在庆祝中国共产党成立100周年大会上，习近平发表重要讲话，强调必须继续推进马克思主义中国化，(  )。", options: ["A、继续发展当代中国马克思主义、21世纪马克思主义", "B、用马克思主义观察时代、把握时代、引领时代", "C、坚持把马克思主义基本原理同中国具体实际相结合", "D、同中华优秀传统文化相结合"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 5, type: "多选", text: "在面建成小康社会决胜阶段，党中央突出抓重点、补短板、强弱项，坚决打好防范化解重大风险、精准脱贫、污染防治的攻坚战, 取得一系列新的重大成就。", options: ["A、人民对美好生活的期望有了更加坚实的基础和保障", "B、看书有去处，健身有地方，风尚更向上，素质更提升", "C、吃穿用有余，家电全面普及，汽车快速进入百姓之家。", "D、中国越来越美丽。污染防治力度加大，生态环境明显改善，人与自然和谐发展的现代化建设新格局已经形成"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 5, type: "多选", text: "党的十八大以来，党形成并协调推进(  )“四个全面”战略布局。", options: ["A、全面依法治国", "B、全面建成小康社会", "C、全面从严治党", "D、全面深化改革"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 5, type: "多选", text: "中国共产党第十九次全国代表大会强调，中华民族伟大复兴绝不是轻轻松松、敲锣打鼓就能实现的，必须准备付出更为艰巨、更为艰苦的努力。(  )，必须(  )，“四个伟大”紧密联系、相互贯通、相互作用。", options: ["A、实现伟大梦想", "B、推进伟大事业", "C、进行伟大斗争", "D、建设伟大工程"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 5, type: "多选", text: "党的十九届五中全会着眼2035年 基本实现社会主义现代化的远景目标，要求加快构建(  )(  )的新发展格局。", options: ["A、国际外贸为主体", "B、全部回归国内循环，闭关政策", "C、国内国际双循环相互促进", "D、以国内大循环为主体"], correctAnswers: ["C","D"] },
+		{ chapterId: 5, type: "多选", text: "党的十八大强调，要全面落实经济建设、(  )“五位一体”总体布局, 促进现代化建设各方面相协调，促进生产关系与生产力、上层建筑与经济基础相协调，不断开拓生产发展、生活富裕、 生态良好的文明发展道路。", options: ["A、生态文明建设", "B、社会建设", "C、文化建设", "D、政治建设"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 5, type: "多选", text: "2013年3月， 习近平在十二届全国人大一次会议上指出，实现中华民族伟大复兴的中国梦，就是要实现(  )(  )(  )，必须走中国道路、弘扬中国精神、凝聚中国力量。", options: ["A、民族振兴", "B、人民幸福", "C、国家富强", "D、国际联盟"], correctAnswers: ["A","B","C"] },
+		{ chapterId: 5, type: "多选", text: "党的十九届五中全会指出:“‘十四五’时期是(   )的第一个五年。”", options: ["A、向第二个百年奋斗目标进军", "B、我国全面建成小康社会、实现第一个百年奋斗目标之后", "C、向打赢扶贫攻坚战进军", "D、乘势而上开启全面建设社会主义现代化国家新征程"], correctAnswers: ["A","B","D"] },
+		{ chapterId: 5, type: "多选", text: "要统筹发展和安全，善于预见和预判各种风险挑战，做好应对各种(  )(   )事件的预案，不断增强发展的安全性。", options: ["A、“灰犀牛”", "B、石榴籽", "C、劳动号子", "D、“黑天鹅”"], correctAnswers: ["A","D"] },
+		{ chapterId: 5, type: "多选", text: "中国共产党第十八次 全国代表大会提出“两个一百年”的奋斗目标:(  )，(  )。", options: ["A、在中国共产党成立100年时建成富强民主文明和谐的社会主义现代化国家", "B、在新中国成立100年时建成富强民主文明和谐的社会主义现代化国家", "C、在中国共产党成立100年时全面建成小康社会", "D、在新中国成立100年时全面建成小康社会"], correctAnswers: ["B","C"] },
+		{ chapterId: 5, type: "多选", text: "2021年2月, “牛年”新春伊始，习近平出席党史学习教育动员大会，发表重要讲话，强调要把苦难辉煌的过去、日新月异的现在、光明宏大的未来贯通起来，(  )风雨无阻，坚毅前行，开创属于我们这一代人的历史伟业。", options: ["A、在风险挑战面前砥砺胆识", "B、不断提高政治判断力、政治领悟力、政治执行力", "C、激发为实现中华民族伟大复兴而奋斗的信心和动力", "D、在乱云飞渡中把牢正确方向"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 5, type: "判断", text: "党的十八届三中全会强调，实践永无止境，解放思想永无止境，改革开放已经取得了伟大成就，当前可以歇一歇，2035年再开始奋斗。", options: ["正确", "错误"], correctAnswers: ["错误"] },
+		{ chapterId: 5, type: "判断", text: "中华民族迎来了从站起来、富起 来到强起来的伟大飞跃，实现中华民族伟大复兴进入了不可逆转的历史进程。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 5, type: "判断", text: "2017年10月18日至24日，中国共产党第十九次全国 代表大会在北京举行。大会作出中国特色社会主义进入新时代的重大政治判断，提出我国社会主要矛盾已经转化为人民日益增长的美好生活需要和不平衡不充分的发展之间的矛盾，这是关系全局的历史性变化，对党和国家工作提出了许多新要求。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 5, type: "判断", text: "十三届全国人大一次会议通过宪法修正案，郑重地把习近平新时代中国特色社会主义思想载入宪法，以法律形式确认了其在国家政治生活和社会生活中的指导地位，体现了全国各族人民的共同意志和全社会的共 同意愿。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 5, type: "判断", text: "历史和人民在救亡图存的血与火中，最终选择了中国共产党。中国共产党一经诞生，就把为中国人民谋幸福、为中华民族谋复兴确立为自己的初心使命。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 5, type: "判断", text: "党的十八大把经济建设纳入中国特色社会主义事业总体布局，使经济建设的战略地位更加明确，标志着中国特色社会主义总体布局更加完善、更加健全。", options: ["正确", "错误"], correctAnswers: ["错误"] },
+		{ chapterId: 5, type: "判断", text: "未来的发展之路应如何绘就?更深层次的改革该如何推进?习近平指出， 我们既要注重总体谋划，又要注重牵住“牛鼻子”，坚持摸着石头过河和加强顶层设计相结合。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 5, type: "判断", text: "十三届全国人大四次会议审议通过的《中华人民共和国 国民经济和社会发展第十四个五年规划和2035年远景目标纲要》，阐明国家战略意图，明确政府工作重点，引导规范 市场主体行为，是开启全面建设社会主义现代化国家新征程 的宏伟蓝图，是全国各族人民共同的行动纲领。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 5, type: "判断", text: "2019年1月，习近平在主持召开中央全面深化改革委 员会第六次会议时强调，党的十一届三中全会是划时代的, 开启了改革开放和社会主义现代化建设历史新时期。党的十八届三中全会也是划时代的，开启了全面深化改革、系统整体设计推进改革的新时代，开创了我国改革开放的全新局面。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 5, type: "填空", text: "十三届全国人大一次会议通过宪法修正案，郑重地把习近平新时代____思想载入宪法，以法律形式确认了其在国家政治生活和社会生活中的指导地位，体现了全国各族人民的共同意志和全社会的共同意愿。", fillAnswers: ["中国特色社会主义"] },
+		{ chapterId: 5, type: "填空", text: "2017年10月18日至24日，中国共产党第十九次全国 代表大会在北京举行。大会作出中国特色社会主义进入____的重大政治判断，提出我国社会主要矛盾已经转化为人民日益增长的美好生活需要和不平衡不充分的发展之间的矛盾，这是关系全局的历史性变化，对党和国家工作提出了许多新要求。", fillAnswers: ["新时代"] },
+		{ chapterId: 5, type: "填空", text: "2012年11月29 0,习近平在参观《复兴之路》展览 时，首次提出并阐释实现中华民族伟大复兴的____。", fillAnswers: ["中国梦"] }
+    );
+
+    // ===================== 章节6: 第六章 全面深化改革·健康中国 =====================
+    questionsData.push(
+		{ chapterId: 6, type: "单选", text: "全面深入实施健康中国战略。（）, 是建设健康中国的战略主题。", options: ["A、全民锻炼、全民健康", "B、全民锻炼、健康生活", "C、共建共享、全民健康", "D、锻炼身体、人人有责"], correctAnswers: ["C"] },
+		{ chapterId: 6, type: "单选", text: "中国特色社会主义最本质的特征是中国共产党领导，中国特色社会主义制度的最大优势是中国共产党领导，党是最高政治领导力量。党的十九大把这一重大政治原则写入党章，把“（）”作为新时代坚持和发展中国特色社会主义的基本方略的第一条。", options: ["A、人民当家做主", "B、人民性", "C、坚持党对一切工作的领导", "D、人民民主专政"], correctAnswers: ["C"] },
+		{ chapterId: 6, type: "单选", text: "2016年2月，习近平主持召开党的新闻舆论工作座谈会并发表重要讲话，强调党的新闻舆论工作是治国理政、定国安邦的大事，要从党的工作全局出发把握定位，坚持党的领导，坚持正确政治方向，坚持以（）的工作导向。", options: ["A、人民为中心", "B、党的领导", "C、社会主义道路", "D、社会主义核心价值观"], correctAnswers: ["A"] },
+		{ chapterId: 6, type: "单选", text: "深化供给侧结构性改革的主要切入点，是（）", options: ["A、解决生产力问题", "B、解决经济重大结构性失衡问题", "C、解决收入分配问题", "D、解决经济基础问题"], correctAnswers: ["B"] },
+		{ chapterId: 6, type: "单选", text: "（）年1月，习近平在《告台湾同胞书》发表40周年纪念会上强调，坚持一个中国原则，两岸关系就能改善和发展，台湾同胞就能受益；背离一个中国原则，就会导致两岸关系紧张动荡，损害台湾同胞切身利益。", options: ["A、2019", "B、2018", "C、2020", "D、2021"], correctAnswers: ["A"] },
+		{ chapterId: 6, type: "单选", text: "（）年11月，习近平在中央财经领导小组第十一次会议上首次提出推进供给侧结构性改革。", options: ["A、2018", "B、2016", "C、2015", "D、2017"], correctAnswers: ["C"] },
+		{ chapterId: 6, type: "单选", text: "2016年4月，习近平在安徽考察时专程来到了()。他说，看了你们村的小麦连片种植基地，绿油油的麦苗长势喜人。看到村民们住上了新房子，用上了自来水，家里通上了宽带，公共服务进入社区，生活环境干净整洁，说明发生了翻天覆地的变化。", options: ["A、新田村", "B、景德镇", "C、华西村", "D、小岗村"], correctAnswers: ["D"] },
+		{ chapterId: 6, type: "单选", text: "为解决形式主义、官僚主义等突出作风问题，2019年3月，中共中央办公厅发出《关于解决形式主义突出问题为基层减负的通知》，将（）年确定为“基层减负年”。", options: ["A、2021", "B、2020", "C、2022", "D、2019"], correctAnswers: ["D"] },
+		{ chapterId: 6, type: "单选", text: "党的（）强调，要毫不动摇巩固和发展公有制经济, 毫不动摇鼓励、支持、引导非公有制经济发展。", options: ["A、十八大", "B、十七大", "C、十九大", "D、二十大"], correctAnswers: ["A"] },
+		{ chapterId: 6, type: "单选", text: "2014年10月，习近平主持召开文艺工作座谈会并作重要讲话，深刻阐述了文艺和文艺工作的地位作用和重大使命，创造性地回答了事关文艺繁荣发展的一系列带有根本性、方向性的重大问题，对在新的历史条件下做好文艺工作作出了全面部署。强调实现中华民族伟大复兴需要中华文化繁荣兴盛，（）是社会主义文艺的灵魂，要创作无愧于时代的优秀作品，坚持以人民为中心的创作导向，加强和改进党对文艺工作的领导。", options: ["A、社会主义道德", "B、社会主义理论", "C、中国精神", "D、社会主义核心价值观"], correctAnswers: ["C"] },
+		{ chapterId: 6, type: "单选", text: "（）年8月，习近平主持中央政治局会议，审议《黄河流域生态保护和高质量发展规划纲要》。10月，党中央、国务院印发《黄河流域生态保护和高质量发展规划纲要》。", options: ["A、2022", "B、2023", "C、2021", "D、2020"], correctAnswers: ["D"] },
+		{ chapterId: 6, type: "单选", text: "（）年4月1日，党中央、国务院决定设立河北雄安新区。", options: ["A、2017", "B、2019", "C、2016", "D、2018"], correctAnswers: ["A"] },
+		{ chapterId: 6, type: "单选", text: "2016年1月，习近平在推动长江经济带发展座谈会上指出，推动长江经济带发展是国家一项重大区域发展战略，要坚持（）、绿色发展，共抓大保护、不搞大开发。", options: ["A、经济优先", "B、生态优先", "C、消费优先", "D、制度优先"], correctAnswers: ["B"] },
+		{ chapterId: 6, type: "单选", text: "党的十八大以来，全国纪检监察机关立案审查案件380.5万件、查处408.9万人，给予党纪政务处分374.2万人。实践证明，正是坚持（），坚决整治党内不正之风和腐败问题，我们党才能赢得人民群众的无比信任和衷心拥护，众志成城推动党和国家事业不断走向新的胜利。", options: ["A、党的领导", "B、权力制约", "C、以国家为中心", "D、以人民为中心"], correctAnswers: ["D"] },
+		{ chapterId: 6, type: "单选", text: "党的（）指出，必须加快推进国家治理体系和治理能力现代化，努力形成更加成熟更加定型的中国特色社会主义制度。", options: ["A、十八届三中全会", "B、十九届二中全会", "C、十九大", "D、十九届三中全会"], correctAnswers: ["D"] },
+		{ chapterId: 6, type: "单选", text: "针对我国经济处于增长速度换挡期、结构调整阵痛期、前期刺激政策消化期“三期叠加”阶段的基本特征和工作要求，习近平作出（）这一重大论断", options: ["A、我国经济发展进入新常态", "B、我国经济发展进入新阶段", "C、我国经济发展进入新时代", "D、我国经济发展进入新情况"], correctAnswers: ["A"] },
+		{ chapterId: 6, type: "单选", text: "党的（）通过《中共中央关于全面推进依法治国若干重大问题的决定》，明确全面推进依法治国的总目标是建设中国特色社会主义法治体系，建设社会主义法治国家。", options: ["A、十八届四中全会", "B、十八届三中全会", "C、十八届二中全会", "D、十九届四中全会"], correctAnswers: ["A"] },
+		{ chapterId: 6, type: "单选", text: "十三届全国人大一次会议通过《中华人民共和国宪法修正案》和（），确立监察委员会作为国家机构的宪法地位。", options: ["A、《中华人民共和国监察法》", "B、《中华人民共和国民法典》", "C、《中华人民共和国经济法》", "D、《中华人民共和国刑法》"], correctAnswers: ["A"] },
+		{ chapterId: 6, type: "单选", text: "（）年11月，中央军委改革工作会议召开。习近平发出动员令：“全面实施改革强军战略，坚定不移走中国特色强军之路。”", options: ["A、2015", "B、2017", "C、2016", "D、2014"], correctAnswers: ["A"] },
+		{ chapterId: 6, type: "单选", text: "新时代，以习近平同志为主要代表的中国共产党人以巨大的政治勇气和智慧，坚持摸着石头过河和顶层设计的辩证统一，更加注重改革的（）、整体性、协同性", options: ["A、统一性", "B、重要性", "C、系统性", "D、先进性"], correctAnswers: ["C"] },
+		{ chapterId: 6, type: "单选", text: "（）年10月，十九届中央政治局第一次会议审议通过《中共中央政治局贯彻落实中央八项规定的实施细则》", options: ["A、2019", "B、2018", "C、2016", "D、2017"], correctAnswers: ["D"] },
+		{ chapterId: 6, type: "单选", text: "浙江省安吉县余村干部群众仍清晰记得，早在2005年, 时任浙江省委书记的习近平在余村考察时，得知村里关闭矿区、走绿色发展之路的做法后高度评价说：“下决心关停矿山是高明之举。”在这次考察中，习近平首次提出（），强调不以牺牲环境为代价去推动经济增长", options: ["A、金山银行不如绿水青山", "B、绿水青山创造金山银山", "C、绿水青山不如金山银山", "D、绿水青山就是金山银山"], correctAnswers: ["D"] },
+		{ chapterId: 6, type: "单选", text: "（）是党面临的最大威胁，严重侵蚀党的执政基础。", options: ["A、腐败", "B、能力", "C、理念", "D、创新"], correctAnswers: ["A"] },
+		{ chapterId: 6, type: "单选", text: "（）年4月，习近平签署中华人民共和国主席令，颁布《中华人民共和国乡村振兴促进法》", options: ["A、2023", "B、2022", "C、2020", "D、2021"], correctAnswers: ["D"] },
+		{ chapterId: 6, type: "单选", text: "在更好发挥政府作用方面，2016年3月，（）审议通过的政府工作报告进行了 “放管服” 的改革部署，强调要推动简政放权、放管结合、优化服务改革向纵深发展。", options: ["A、十二届全国人大二次会议", "B、十二届全国人大三次会议", "C、十二届全国人大四次会议", "D、十二届全国人大一次会议"], correctAnswers: ["C"] },
+		{ chapterId: 6, type: "单选", text: "2019年11月2日，习近平在上海考察时，首次提出“（）”，从理论上解决了人民如何有效地行使当家作主的民主权利问题。", options: ["A、人民民主的新理论", "B、人民民主是人民的民主", "C、人民民主专政", "D、人民民主是一种全过程的民主"], correctAnswers: ["D"] },
+		{ chapterId: 6, type: "多选", text: "以下属于《法治政府建设实施纲要（2015—2020年）》确立的2020年基本建成法治政府的奋斗目标和行动纲领的是（）", options: ["A、“放管服”改革持续推进，到2020年，国务院先后取消、下放行政审批事项618项，终结所有非行政许可审批，极大地激发了市场和社会活力", "B、清单管理全面实行，31个省级政府公布省市县三级政府部门权力和责任清单", "C、“双随机、一公开”全面推行，事中事后监管不断加强", "D、行政执法体制改革深入推进，严格规范公正文明执法水平明显提升"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 6, type: "多选", text: "我国经济发展新常态的主要特点有（）", options: ["A、增长速度正从高速增长转向中高速增长", "B、经济发展方式正从规模速度型粗放增长转向质量效率型集约增长", "C、经济发展动力正从传统增长点转向新的增长点", "D、经济结构正从增量扩能为主转向调整存量、做优增量并存的深度调整"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 6, type: "多选", text: "2015年11月，习近平同台湾方面领导人马英九在新加坡会面，就进一步推进两岸关系和平发展交换意见。习近平强调，两岸中国人完全有能力、有智慧解决好自己的问题，并共同为世界与地区和平稳定、发展繁荣作出更大贡献。习近平提出了4点意见（）：这是1949年以来两岸领导人首次会面，开创了两岸领导人直接对话、沟通的先河，为两岸关系未来发展开辟了新的空间。根据两岸领导人会面达成的共识，国务院台办与台湾方面陆委会建立并启用“两岸热线”。", options: ["A、坚持巩固深化两岸关系和平发展、", "B、坚持同心实现中华民族伟大复兴", "C、坚持两岸共同政治基础不动摇、", "D、坚持为两岸同胞多谋福祉、"], correctAnswers: ["A","C","D"] },
+		{ chapterId: 6, type: "多选", text: "2021年4月，党中央、国务院印发《关于加强基层治理体系和治理能力现代化建设的意见》，围绕加强基层政权治理能力建设，就增强乡镇（街道）（）平安建设能力进行了总体部署。", options: ["A、议事协商能力", "B、行政执行能力", "C、应急管理能力", "D、为民服务能力"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 6, type: "多选", text: "深化供给侧结构性改革的主要切入点，是解决经济重大结构性失衡问题，也就是解决（）", options: ["A、实体经济结构性供需失衡", "B、房地产和实体经济失衡", "C、金融和实体经济失衡", "D、收入和分配失衡问题"], correctAnswers: ["A","B","C"] },
+		{ chapterId: 6, type: "多选", text: "深化党和国家机构改革的目标是：（）", options: ["A、职责明确、依法行政的政府治理体系，中国特色、世界一流的武装力量体系，", "B、构建系统完备、科学规范、运行高效的党和国家机构职能体系，形成总揽全局、协调各方的党的领导体系，", "C、联系广泛、服务群众的群团工作体系，", "D、推动人大、政府、政协、监察机关、审判机关、检察机关、人民团体、企事业单位、社会组织等在党的统一领导下协调行动、增强合力，全面提高国家治理能力和治理水平。"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 6, type: "判断", text: "党中央、国务院颁布《关于实施乡村振兴战略的意见》，明确实施乡村振兴战略的目标任务是：到2020年，乡村振兴取得重要进展，制度框架和政策体系基本形成。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 6, type: "判断", text: "以习近平同志为核心的党中央，高度重视加强对港澳工作的集中统一领导。2020年2月，党中央决定成立中央港澳工作领导小组，取代原来的中央港澳工作协调小组。这是党中央对港澳工作领导体制作出的一次重大调整，进一步加强了党中央对港澳工作的集中统一领导，不仅对香港局势由乱转治发挥了重要作用，而且对“一国两制”实践行稳致远将产生深远影响。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 6, type: "判断", text: "党的十八大以来，以习近平同志为核心的党中央高举改革旗帜，统揽改革全局，推动改革攻坚，在风雷激荡中挺立潮头，在勇毅笃行中写就华章，引领改革全面发力，向更宽领域拓展、向更深层次挺进、向更高境界冲刺，为中国经济社会发展不断取得历史性新成就、全面建设社会主义现代化国家注入了强劲动力，为实现中华民族伟大复兴提供了更为完善的制度保证、更为坚实的物质基础、更为主动的精神力量。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 6, type: "判断", text: "粤港澳大湾区由香港特别行政区、澳门特别行政区和广东省、广西省九市组成。", options: ["正确", "错误"], correctAnswers: ["错误"] },
+		{ chapterId: 6, type: "判断", text: "2020年12月，习近平在中央经济工作会议上强调，要紧紧扭住供给侧结构性改革这条主线，注重需求侧管理，打通堵点，补齐短板，贯通生产、分配、流通、消费各环节，形成需求牵引供给、供给创造需求的更高水平动态平衡，提升国民经济体系整体效能。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 6, type: "判断", text: "深化户籍制度改革成为推进新型城镇化建设、创新社会治理方式的突破口。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 6, type: "判断", text: "2017年7月，习近平出席庆祝香港回归祖国20周年大会暨香港特别行政区第五届政府就职典礼并发表讲话，强调 “一国”是根，根深才能叶茂；“一国”是本，本固才能枝荣。", options: ["正确", "错误"], correctAnswers: ["正确"] },
+		{ chapterId: 6, type: "判断", text: "党的十九届四中全会明确将按劳分配为主体、多种分配方式并存确立为社会主义基本经济制度之一，进一步指出要健全劳动、资本、土地、知识、技术、管理、数据等生产要素由市场评价贡献、按贡献决定报酬的机制。这是社会主义分配理论和实践发展的重大创新，不但对进一步完善我国的分配制度具有重大意义，而且对各类生产要素的活力竞相迸发具有直接推动和引导作用。", options: ["正确", "错误"], correctAnswers: ["正确"] }
+    );
+
+    // ===================== 章节7: 单元测验·总体国家安全观 & 人类命运共同体 =====================
+    questionsData.push(
+        { chapterId: 7, type: "单选", text: "2020年2月，习近平在中央全面深化改革委员会第十二次会议上提出，把()纳入国家安全体系。", options: ["A、经济安全", "B、军事安全", "C、生物安全", "D、政治安全"], correctAnswers: ["C"] },
+		{ chapterId: 7, type: "单选", text: "()是顺应新时代新形势新要求的战略思想，是新时代维护国家安全和社会安全、经济安全、文化安全等各领域安全的根本遵循。", options: ["A、高水平对外开放", "B、全方位外交布局", "C、总体国家安全观", "D、构建人类命运共同体"], correctAnswers: ["C"] },
+		{ chapterId: 7, type: "单选", text: "国家安全法规定每年的()为全民国家安全教育日。", options: ["A、6月5日", "B、4月15日", "C、3月15日", "D、7月5日"], correctAnswers: ["B"] },
+		{ chapterId: 7, type: "单选", text: "亚洲基础设施投资银行于()12月25日成立。", options: ["A、2014年", "B、2016年", "C、2013年", "D、2015年"], correctAnswers: ["D"] },
+		{ chapterId: 7, type: "单选", text: "2014年12月，国务院决定设立广东、天津、()三个自贸试验区。", options: ["A、重庆", "B、福建", "C、浙江", "D、湖北"], correctAnswers: ["B"] },
+		{ chapterId: 7, type: "单选", text: "()是文明发展的本质要求。", options: ["A、交流互鉴", "B、持久和平", "C、生态建设", "D、共同繁荣"], correctAnswers: ["A"] },
+		{ chapterId: 7, type: "单选", text: "党的十八大以来，中国秉持和遵循()的全球治理观。", options: ["A、经济全球化", "B、开放共赢", "C、共商共建共享", "D、高水平对外开放"], correctAnswers: ["C"] },
+		{ chapterId: 7, type: "单选", text: "2020年5月，()实施15周年座谈会强调，坚决粉碎“台独”分裂图谋，坚决捍卫国家主权和领土完整。", options: ["A、《反分裂国家法》", "B、“九二共识”", "C、《告台湾同胞书》", "D、《海峡两岸服务贸易协议》"], correctAnswers: ["A"] },
+		{ chapterId: 7, type: "单选", text: "2014年4月，习近平在中央国家安全委员会第一次会议上，()提出总体国家安全观。", options: ["A、第一次", "B、第三次", "C、第二次", "D、第四次"], correctAnswers: ["A"] },
+		{ chapterId: 7, type: "单选", text: "2013年9月，习近平首次提出共同建设()的合作倡议。", options: ["A、海上丝绸之路", "B、古丝绸之路", "C、丝绸之路经济带", "D、一带一路"], correctAnswers: ["C"] },
+		{ chapterId: 7, type: "单选", text: "2018年6月召开的中央外事工作会议，确立了()在对外工作中的指导地位。", options: ["A、全方位外交布局", "B、中国特色大国外交", "C、习近平外交思想", "D、多边外交"], correctAnswers: ["C"] },
+		{ chapterId: 7, type: "单选", text: "2020年9月，习近平在联合国成立75周年纪念峰会上发表重要讲话，指出()仍然是世界和平与发展的重要保障。", options: ["A、国际组织", "B、联合国安理会", "C、《联合国宪章》", "D、《第71届联合国大会中方立场文件》"], correctAnswers: ["C"] },
+		{ chapterId: 7, type: "单选", text: "2019年4月，()“一带一路”国际合作高峰论坛在北京成功举行。", options: ["A、第三届", "B、第二届", "C、第四届", "D、第一届"], correctAnswers: ["B"] },
+		{ chapterId: 7, type: "单选", text: "()2月10日，联合国社会发展委员会第五十五届会议首次将“构建人类命运共同体”理念写入联合国决议。", options: ["A、2017年", "B、2018年", "C、2016年", "D、2015年"], correctAnswers: ["A"] },
+		{ chapterId: 7, type: "单选", text: "()7月1日，习近平在庆祝中国共产党成立100周年大会上的讲话中，指出以史为鉴、开创未来，必须不断推动构建人类命运共同体。", options: ["A、2022年", "B、2019年", "C、2021年", "D、2020年"], correctAnswers: ["C"] },
+		{ chapterId: 7, type: "单选", text: "()是习近平外交思想的核心理念?", options: ["A、构建合作共赢新伙伴", "B、统筹国内国际两个大局", "C、倡导推动构建人类命运共同体", "D、扩大高水平对外开放"], correctAnswers: ["C"] },
+		{ chapterId: 7, type: "多选", text: "坚持总体国家安全观，要以人民安全为宗旨，统筹国内国际两个大局，统筹()两件大事，有效整合各方面力量。", options: ["A、稳定", "B、和谐", "C、安全", "D、发展"], correctAnswers: ["C","D"] },
+		{ chapterId: 7, type: "多选", text: "“一带一路”致力于()。", options: ["A、共赢", "B、合作", "C、发展", "D、和平"], correctAnswers: ["A","B","C","D"] },
+		{ chapterId: 7, type: "多选", text: "维护()，这是我国外交工作的出发点和落脚点。", options: ["A、发展利益", "B、国家主权", "C、党的领导", "D、安全"], correctAnswers: ["A","B","D"] },
+		{ chapterId: 7, type: "多选", text: "总体国家安全观的范围包括()。", options: ["A、金融安全", "B、人民安全", "C、外层空间安全", "D、粮食安全"], correctAnswers: ["A","B","C","D"] }
+    );
+
+    // ---------- 以下为渲染引擎 + 导航栏 (无需修改，会自动根据以上数据展示) ----------
+    const chapters = [
+        { name: "绪论测验", id: 0 },
+        { name: "第一章", id: 1 },
+        { name: "第二章", id: 2 },
+        { name: "第三章", id: 3 },
+        { name: "第四章", id: 4 },
+        { name: "第五章", id: 5 },
+        { name: "第六章", id: 6 },
+        { name: "第七章", id: 7 }
+    ];
+
+    let currentChapterId = "all";  // "all" 或 数字id
+
+    // 渲染题目列表
+    function renderQuestions() {
+        const container = document.getElementById('questionsContainer');
+        let filtered = [];
+        if (currentChapterId === "all") {
+            for (let i = 0; i < chapters.length; i++) {
+                filtered.push(...questionsData.filter(q => q.chapterId === i));
+            }
+        } else {
+            filtered = questionsData.filter(q => q.chapterId === currentChapterId);
+        }
+
+        if (filtered.length === 0) {
+            container.innerHTML = `<div class="empty-tip">📭 当前章节暂无题目，请按照上方数据格式在 questionsData 中添加题目～<br>✨ 参考已有的样例，直接复制并修改即可。</div>`;
+            return;
+        }
+
+        let html = '';
+        filtered.forEach((item, idx) => {
+            let typeLabel = '';
+            if (item.type === '单选') typeLabel = '🔘 单选题';
+            else if (item.type === '多选') typeLabel = '☑️ 多选题';
+            else if (item.type === '判断') typeLabel = '⚖️ 判断题';
+            else if (item.type === '填空') typeLabel = '📝 填空题';
+            else typeLabel = item.type;
+
+            html += `<div class="question-card">
+                        <div class="question-header">
+                            <span class="q-type">${typeLabel}</span>
+                        </div>
+                        <div class="q-text">${idx+1}. ${item.text}</div>`;
+
+            // 处理填空题 (展示正确答案)
+            if (item.type === '填空' && item.fillAnswers && item.fillAnswers.length) {
+                let fillHtml = `<div class="fill-answer-area"><span class="fill-label">✍️ 正确答案：</span>`;
+                item.fillAnswers.forEach(ans => {
+                    fillHtml += `<span class="fill-badge">${ans}</span>`;
+                });
+                fillHtml += `</div>`;
+                html += fillHtml;
+            } 
+            // 判断题或者普通多选/单选（使用options）
+            else if (item.type === '判断' || (item.options && item.options.length)) {
+                html += `<div class="options-area">`;
+                const opts = item.options;
+                for (let opt of opts) {
+                    let isCorrect = false;
+                    if (item.type === '判断') {
+                        // 判断类型的正确匹配：“正确” 或 “错误”
+                        const judgeCorrectText = (item.correctAnswers && item.correctAnswers[0]) || '';
+                        isCorrect = (opt === judgeCorrectText);
+                    } else {
+                        // 单选或多选：提取选项首字母（A、B、C、D...）
+                        let optLetter = opt.charAt(0);
+                        if (item.correctAnswers && item.correctAnswers.includes(optLetter)) {
+                            isCorrect = true;
+                        }
+                    }
+                    const correctClass = isCorrect ? 'correct' : '';
+                    html += `<div class="option-item ${correctClass}">${opt}</div>`;
+                }
+                html += `</div>`;
+            } 
+            // 容错：没有任何options和填空则展示占位
+            else {
+                html += `<div style="padding:0.5rem; color:#9b927c;">⚠️ 题目格式缺失选项或填空答案，请检查数据。</div>`;
+            }
+            html += `</div>`;
+        });
+        container.innerHTML = html;
+    }
+
+    // 生成底部导航按钮
+    function buildNav() {
+        const navDiv = document.getElementById('chapterNav');
+        let btns = `<button class="chapter-btn all-btn ${currentChapterId === 'all' ? 'active' : ''}" data-chapter="all">📚 全部章节 · 顺序复习</button>`;
+        chapters.forEach(ch => {
+            btns += `<button class="chapter-btn ${currentChapterId === ch.id ? 'active' : ''}" data-chapter="${ch.id}">📖 ${ch.name}</button>`;
+        });
+        navDiv.innerHTML = btns;
+        // 绑定事件
+        document.querySelectorAll('[data-chapter]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const val = btn.getAttribute('data-chapter');
+                if (val === 'all') {
+                    currentChapterId = 'all';
+                } else {
+                    currentChapterId = parseInt(val);
+                }
+                buildNav();    // 重绘激活状态
+                renderQuestions();  // 刷新题目
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    }
+
+    // 初始化页面
+    buildNav();
+    renderQuestions();
+</script>
+</body>
+</html>
